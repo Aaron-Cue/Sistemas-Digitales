@@ -1,0 +1,617 @@
+\input{../../Template}
+
+\title{Organización del Computador I}
+\author{Práctica 2: Lógica Digital}
+\date{1er cuatrimestre 2022}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ejercicio 1}
+
+Calculando las tablas de verdad podemos ver la equivalencia de las fórmulas booleanas.
+
+\subsection{}
+
+$p=(p.q)+(p.\overline{q})$
+
+\begin{tabular}{|x|c|c|x|c|}
+    $p$ & $q$ & $(p.q)$ & $+$ & $(p.\overline{q})$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 1 & 1 \\
+    1 & 1 & 1 & 1 & 0 \\
+\end{tabular}
+
+\subsection{}
+
+$x.z = (x+y).(x+\overline{y}).(\overline{x}+z)$
+
+\begin{tabular}{|c|c|c||x|c|c|c|x|c|}
+    $x$ & $y$ & $z$ & $x.z$ & $(x+y)$ & $.$ & $(x+\overline{y})$ & $.$ & $(\overline{x}+z)$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\
+    0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 \\
+    0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 1 \\
+    1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+    1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+\end{tabular}
+
+\section{Ejercicio 2}
+
+Resolviendo mediante propiedades llegamos a 2 fórmulas que a priori no parecen ser equivalentes. Notar en la última línea que a la izquierda tenemos $\overline{y.z}$ mientras que a la derecha tenemos $\overline{y}.\overline{z}$.
+\begin{flalign*}
+    x \xor (y.z) &= (x \xor y).(x \xor z) &&\\
+    \overline{x}.y.z + x.\overline{y.z} &= (\overline{x}.y + x.\overline{y}).(\overline{x}.z + x.\overline{z}) &&\\
+    \overline{x}.y.z + x.\overline{y.z} &= (\overline{x}.y + x.\overline{y}).\overline{x}.z + (\overline{x}.y + x.\overline{y}).x.\overline{z} &&\\
+    \overline{x}.y.z + x.\overline{y.z} &= \overline{x}.y.\overline{x}.z + x.\overline{y}.\overline{x}.z + \overline{x}.y.x.\overline{z} + x.\overline{y}.x.\overline{z} &&\\
+    \overline{x}.y.z + x.\overline{y.z} &= \overline{x}.y.z + x.\overline{y}.\overline{z}
+\end{flalign*}
+
+Calculamos la tabla de verdad para verificar.
+
+\begin{tabular}{|c|c|c||c|x|c|c|x|c|c|}
+    $x$ & $y$ & $z$ & $x$ & $\xor$ & $(y.z)$ & $(x \xor y)$ & . & $(x \xor z)$ & \\
+    \hline
+    1 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 &  \\
+    1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & \xmark \\
+    1 & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & \xmark \\
+    1 & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 1 &  \\
+    0 & 1 & 1 & 0 & 1 & 1 & 1 & 1 & 1 &  \\
+    0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &  \\
+    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 &  \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &  \\
+\end{tabular}
+
+Conclusión: la propiedad planteada es falsa.
+
+\section{Ejercicio 3}
+
+\subsection{}
+
+Verdadero, con el operador NAND ($p|q = \overline{p.q}$) podemos representar todas las funciones booleanas: AND, OR, NOT.
+
+Recordemos la tabla de verdad del NAND.
+
+\begin{tabular}{|c|c|c|x|}
+    $p$ & $q$ & $p.q$ & $p|q = \overline{p.q}$ \\
+    \hline
+    0 & 0 & 0 & 1 \\
+    0 & 1 & 0 & 1 \\
+    1 & 0 & 0 & 1 \\
+    1 & 1 & 1 & 0 \\
+\end{tabular}
+
+\subsubsection{NOT}
+
+Utilizando la misma entrada 2 veces en un NAND podemos obtener un NOT.
+
+$p|p = \overline{p}$
+
+\begin{tabular}{|c|x|x|}
+    $p$ & $p|p$ & $\overline{p}$ \\
+    \hline
+    0 & 1 & 1 \\
+    1 & 0 & 0 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NAND_NOT}
+\end{figure}
+
+\subsubsection{AND}
+
+Utilizando el NOT ya construido, podemos encadenarlo a la salida de un NAND para cancelar su negación y así obtener el resultado original del AND.
+
+$(p|q)|(p|q) = p.q$
+
+\begin{tabular}{|c|c|c|x|x|}
+    $p$ & $q$ & $p|q$ & $(p|q)|(p|q)$ & $p.q$ \\
+    \hline
+    0 & 0 & 1 & 0 & 0 \\
+    0 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 0 \\
+    1 & 1 & 0 & 1 & 1 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NAND_AND}
+\end{figure}
+
+\subsubsection{OR}
+
+$(p|p)|(q|q) = \overline{p}|\overline{q} = \overline{\overline{p}.\overline{q}} = \overline{\overline{p}}+\overline{\overline{q}} = p+q$
+
+\begin{tabular}{|c|c|c|x|c|x|}
+    $p$ & $q$ & $(p|p)$ & $|$ & $(q|q)$ & $p+q$ \\
+    \hline
+    0 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 1 & 0 & 1 \\
+    1 & 0 & 0 & 1 & 1 & 1 \\
+    1 & 1 & 0 & 1 & 0 & 1 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NAND_OR}
+\end{figure}
+
+\subsection{}
+
+Verdadero, con el operador NOR ($p\downarrow q = \overline{p+q}$) podemos representar todas las funciones booleanas: AND, OR, NOT.
+
+Recordemos la tabla de verdad del NOR.
+
+\begin{tabular}{|c|c|c|x|}
+    $p$ & $q$ & $p+q$ & $p\downarrow q = \overline{p+q}$ \\
+    \hline
+    0 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 0 \\
+    1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 0 \\
+\end{tabular}
+
+Observemos que los circuitos para armar las funciones booleanas utilizando solo la compuerta NOR son análogos a los utilizandos con la compuerta NAND.
+
+\subsubsection{NOT}
+
+$p\downarrow p = \overline{p}$
+
+\begin{tabular}{|c|x|x|}
+    $p$ & $p\downarrow p$ & $\overline{p}$ \\
+    \hline
+    0 & 1 & 1 \\
+    1 & 0 & 0 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NOR_NOT}
+\end{figure}
+
+\subsubsection{AND}
+
+$(p\downarrow p)\downarrow(q\downarrow q) = \overline{p}\downarrow\overline{q} = \overline{\overline{p}+\overline{q}} = \overline{\overline{p}}.\overline{\overline{q}} = p.q$
+
+\begin{tabular}{|c|c|c|x|c|x|}
+    $p$ & $q$ & $(p\downarrow p)$ & $\downarrow$ & $(q\downarrow q)$ & $p.q$ \\
+    \hline
+    0 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 1 & 0 \\
+    1 & 1 & 0 & 1 & 0 & 1 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NOR_AND}
+\end{figure}
+
+\subsubsection{OR}
+
+$(p\downarrow q)\downarrow(p\downarrow q) = (\overline{p+q}) \downarrow (\overline{p+q}) = \overline{\overline{p+q}} = p+q$
+
+\begin{tabular}{|c|c|c|x|x|}
+    $p$ & $q$ & $p\downarrow q$ & $(p\downarrow q)\downarrow(p\downarrow q)$ & $p+q$ \\
+    \hline
+    0 & 0 & 1 & 0 & 0 \\
+    0 & 1 & 0 & 1 & 1 \\
+    1 & 0 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 1 & 1 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/NOR_OR}
+\end{figure}
+
+\section{Ejercicio 4}
+
+Resuelto en el ejercicio 3.
+
+\section{Ejercicio 5}
+
+\begin{tabular}{|c|c|c|x|}
+    $p$ & $q$ & $r$ & $p.q.r$ \\
+    \hline
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 0 \\
+    1 & 0 & 1 & 0 \\
+    1 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 1 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/P2_EJ5}
+\end{figure}
+
+\section{Ejercicio 6}
+
+\begin{tabular}{|c|c|c|x|}
+    $A$ & $B$ & $C$ & $F(A,B,C)$ \\
+    \hline
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 1 & 1 & 1 \\
+    1 & 0 & 0 & 1 \\
+    1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 1 \\
+\end{tabular}
+
+\emph{Nota: La tabla de verdad fue ordenada para una lectura más fácil.}
+
+\subsection{}
+
+$F(A,B,C) = \overline{A}.B.C + A.\overline{B}.\overline{C} + A.\overline{B}.C + A.B.C$
+
+La implementación literal requiere un total de 15 compuertas: 3 OR, 8 AND y 4 NOT.
+
+\subsection{}
+
+$F(A,B,C) = \overline{A}.B.C + A.\overline{B}.\overline{C} + A.\overline{B}.C + A.B.C = B.C(A + \overline{A}) + A.\overline{B}(\overline{C} + C) = B.C + A.\overline{B}$
+
+La implementación optimizada requiere un total de 4 compuertas: 1 OR, 2 AND y 1 NOT.
+
+\begin{tabular}{|c|c|c||c|x|c|}
+    $A$ & $B$ & $C$ & $B.C$ & $+$ & $A.\overline{B}$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 1 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 0 & 1 & 1 \\
+    1 & 0 & 1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 1 & 0 \\
+\end{tabular}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/P2_EJ6}
+\end{figure}
+
+\pagebreak
+
+\section{Ejercicio 7: demultiplexor}
+
+En la primer tabla de verdad planteamos una columna para los valores explícitos de $e_0$. En la segunda tabla eliminamos esta columna y en cambio planteamos $e_0$ como el valor de salida cuando las líneas de control computan a 1 para esa fila. Es decir, dada la fórmula booleana para cada salida, primero vemos si el AND entre las 2 líneas de control daría 1, y solo en ese caso el resultado final va a ser determinado por $e_0$. En todos los otros casos, como el AND entre las líneas de control da 0, es indistinto el valor de $e_0$ y la salida va a ser siempre $0$.
+
+\begin{multicols}{2}
+    \begin{tabular}{|c|c|c||c|c|c|c|}
+        $c_1$ & $c_0$ & $e_0$ & $s_3$ & $s_2$ & $s_1$ & $s_0$ \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 0 \\
+        1 & 1 & 1 & 1 & 0 & 0 & 0 \\
+    \end{tabular}
+
+    \begin{tabular}{|c|c||c|c|c|c|}
+        $c_1$ & $c_0$ & $s_3$ & $s_2$ & $s_1$ & $s_0$ \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & $e_0$ \\
+        0 & 1 & 0 & 0 & $e_0$ & 0 \\
+        1 & 0 & 0 & $e_0$ & 0 & 0 \\
+        1 & 1 & $e_0$ & 0 & 0 & 0 \\
+    \end{tabular}
+\end{multicols}
+
+Podemos plantear las siguientes fórmulas booleanas para cada una de las salidas.
+
+$
+s_3 = c_1.c_0.e_0
+\hspace{2em}
+s_2 = c_1.\overline{c_0}.e_0
+\hspace{2em}
+s_1 = \overline{c_1}.c_0.e_0
+\hspace{2em}
+s_0 = \overline{c_1}.\overline{c_0}.e_0
+$
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/DemultiplexorV1}
+\end{figure}
+
+\pagebreak
+
+\section{Ejercicio 8: codificador}
+
+\subsection{}
+
+\begin{tabular}{|c|c|c|c||c|c|}
+    $e_0$ & $e_1$ & $e_2$ & $e_3$ & $s_1$ & $s_0$ \\
+    \hline
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1 & 1 & 1 \\
+\end{tabular}
+
+$
+s_1
+= \overline{e_0} . \overline{e_1} . e_2 . \overline{e_3} + \overline{e_0} . \overline{e_1} . \overline{e_2} . e_3
+= \overline{e_0} . \overline{e_1} . (e_2 . \overline{e_3} + \overline{e_2} . e_3)
+= \overline{e_0 + e_1} . (e_2 . \overline{e_3} + \overline{e_2} . e_3)
+= (e_0 \nor e_1) . (e_2 \xor e_3)
+$
+
+$
+s_0
+= \overline{e_0} . e_1 . \overline{e_2} . \overline{e_3} + \overline{e_0} . \overline{e_1} . \overline{e_2} . e_3
+= \overline{e_0} . \overline{e_2} . (e_1 . \overline{e_3} + \overline{e_1} . e_3)
+= \overline{e_0 + e_2} . (e_1 . \overline{e_3} + \overline{e_1} . e_3)
+= (e_0 \nor e_2) . (e_1 \xor e_3)
+$
+
+\emph{Nota: Consideramos $s_1$ como el bit más significativo de la representación binaria del número $i$.}
+
+\subsection{}
+
+Para determinar si el estado de la entrada es válido necesitamos que $v=1$ únicamente cuando hay una sola entrada en $1$.
+
+\begin{tabular}{|c|c|c|c||c|}
+    $e_0$ & $e_1$ & $e_2$ & $e_3$ & v \\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 1 \\
+    0 & 0 & 1 & 0 & 1 \\
+    0 & 0 & 1 & 1 & 0 \\
+    0 & 1 & 0 & 0 & 1 \\
+    0 & 1 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 0 & 0 \\
+    0 & 1 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 0 & 1 \\
+    1 & 0 & 0 & 1 & 0 \\
+    1 & 0 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 1 & 0 \\
+    1 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 0 \\
+\end{tabular}
+
+Traducimos la tabla de verdad a una fórmula booleana literal y simplificamos usando propiedades.
+\begin{flalign*}
+v &= e_0 . \overline{e_1} . \overline{e_2} . \overline{e_3} + \overline{e_0} . e_1 . \overline{e_2} . \overline{e_3} + \overline{e_0} . \overline{e_1} . e_2 . \overline{e_3} + \overline{e_0} . \overline{e_1} .\overline{e_2} . e_3 &&\\
+&= (e_0 . \overline{e_1} + \overline{e_0} . e_1) . \overline{e_2} . \overline{e_3} + \overline{e_0} . \overline{e_1} . (e_2 . \overline{e_3} + \overline{e_2} . e_3) &&\\
+&= (e_0 \xor e_1) . (e_2 \nor e_3) + (e_0 \nor e_1) . (e_2 \xor e_3)
+\end{flalign*}
+
+La fórmula se puede describir de la siguiente forma: la salida $v$ será 1 si $e_0$ o $e_1$ son 1 (pero no ambos al mismo tiempo) y a su vez $e_2$ y $e_3$ son ambos 0. O, de forma análoga, si $e_2$ o $e_3$ son 1 (pero no ambos al mismo tiempo) y a su vez $e_0$ y $e_1$ son ambos 0.
+
+\pagebreak
+
+Planteamos un único circuito para el codificador con la salida que indica si la entrada está en un estado válido.
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/Codificador}
+\end{figure}
+
+\pagebreak
+
+\section{Ejercicio 9: decodificador}
+
+\subsection{}
+
+\begin{tabular}{|c|c||c|c|c|c|}
+    $e_1$ & $e_0$ & $s_3$ & $s_2$ & $s_1$ & $s_0$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 1 \\
+    0 & 1 & 0 & 0 & 1 & 0 \\
+    1 & 0 & 0 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 0 & 0 & 0 \\
+\end{tabular}
+
+$
+s_3 = e_1.e_0
+\hspace{2em}
+s_2 = e_1.\overline{e_0}
+\hspace{2em}
+s_1 = \overline{e_1}.e_0
+\hspace{2em}
+s_0 = \overline{e_1}.\overline{e_0}
+$
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/Decodificador}
+\end{figure}
+
+\subsection{}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/DemultiplexorV2}
+\end{figure}
+
+\pagebreak
+
+\section{Ejercicio 10: carry left shifter 3-4}
+
+\subsection{}
+
+$
+s_3 = c_0 . e_2
+\hspace{2em}
+s_2 = \overline{c_0} . e_2 + c_0 . e_1
+\hspace{2em}
+s_1 = \overline{c_0} . e_1 + c_0 . e_0
+\hspace{2em}
+s_0 = \overline{c_0} . e_0
+$
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/CarryLeftShifter}
+\end{figure}
+
+\subsection{}
+
+El shift a la izquierda equivale a multiplicar por 2. El shift a la derecha equivale a la división entera por 2 (es decir, dividir por 2 redondeado hacia abajo).
+
+\begin{lstlisting}
+0110$_2$ = 6$_{10}$
+0110$_2$ $\ll$ 1 = 1100$_2$ = 12$_{10}$
+0110$_2$ $\gg$ 1 = 0011$_2$ = 3$_{10}$
+\end{lstlisting}
+
+\begin{lstlisting}
+0101$_2$ = 5$_{10}$
+0101$_2$ $\ll$ 1 = 1010$_2$ = 10$_{10}$
+0101$_2$ $\gg$ 1 = 0010$_2$ = 2$_{10}$
+\end{lstlisting}
+
+\pagebreak
+
+\section{Ejercicio 11: full adder de 1 bit}
+
+\subsection{}
+
+\begin{multicols}{2}
+    \begin{flalign*}
+        S
+        &= \overline{A} . \overline{B} . C_{in} + \overline{A} . B . \overline{C_{in}} + A . \overline{B} . \overline{C_{in}} + A . B . C_{in} &&\\
+        &= (\overline{A} . \overline{B} + A . B) . C_{in} + (\overline{A} . B + A . \overline{B}) . \overline{C_{in}} &&\\
+        &= (\overline{A \xor B}) . C_{in} + (A \xor B) . \overline{C_{in}} &&\\
+        &= (A \xor B) \xor C_{in}
+    \end{flalign*}
+
+    \begin{flalign*}
+        C_{out}
+        &= \overline{A} . B . C_{in} + A . \overline{B} . C_{in} + A . B . \overline{C_{in}} + A . B . C_{in} &&\\
+        &= (\overline{A} . B + A . \overline{B}) . C_{in} + (\overline{C_{in}} + C_{in}) . A . B &&\\
+        &= (A \xor B) . C_{in} + A . B
+    \end{flalign*}
+\end{multicols}
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/FullAdder1bit}
+\end{figure}
+
+\subsection{}
+
+El retardo total del circuito será $max\{ \text{retardo}(S), \text{retardo}(C_{out}) \}$. La salida $S$ utiliza 2 compuertas mientras que $C_{out}$ utiliza 4. Nos concentramos entonces en ver el retardo de $C_{out}$ para cada instante.
+
+\begin{enumerate}
+    \item Se activan las compuertas para las operaciones: $A \xor B$ y $A . B$
+    \item Se activa la compuerta para la operación AND: $(A \xor B) \boldsymbol{.} C_{in}$
+    \item Se activa la compuerta para la operación OR: $(A \xor B) . C_{in} \boldsymbol{+} A . B$
+\end{enumerate}
+
+
+Por lo tanto, el retardo total del circuito para producir todas su señales de salida es de $3t$.
+
+\pagebreak
+
+\section{Ejercicio 12: full adder de 4 bits}
+
+\subsection{}
+
+\begin{figure}[ht]
+    \includesvg[width=\textwidth]{Circuitos/FullAdder4bitsV2}
+\end{figure}
+
+\emph{Nota: Este circuito ya incluye los flags del item b.}
+
+\subsection{}
+
+\begin{itemize}
+    \item Negative: $N = S_3$
+    \item Overflow: $V = C_{in3} \xor C_{out3}$
+    \item Carry: $C = C_{out3}$
+    \item Zero: $Z = (S_0 \nor S_1) . (S_2 \nor S_3)$
+\end{itemize}
+
+\subsection{}
+
+Sí, el circuito funciona para sumar números codificados en notación sin signo. Pero habría que ajustar los flags de la siguiente forma:
+
+\begin{itemize}
+    \item Negative: no aplica ya que estamos sumando números sin signo
+    \item Overflow: se ignora
+    \item Carry: es el nuevo flag de overflow
+    \item Zero: sin cambios
+\end{itemize}
+
+\subsection{}
+
+Para realizar restas se podría modificar el circuito agregando una nueva señal de control $O$ para indicar la operación: $0$ representa suma, $1$ representa resta.
+
+Si los números están representados en complemento a 2, el procedimiento sería el siguiente:
+
+\begin{itemize}
+    \item Invertir todos los bits de la entrada $B.$
+    \item Suministrar un $1$ en el $C_{in}$ del full adder del bit menos significativo.
+\end{itemize}
+
+De esta forma encontramos el inverso aditivo de la entrada $B$ y en efecto la operación realizada es: $A + (-B) = A - B$.
+
+Para números representados en notación sin signo, si restringimos la entrada a 3 bits, el número se representa igual en complemento a 2 con 4 bits y podemos hacer la misma operación planteada anteriormente.
+
+Tabla de verdad de la resta:
+
+\begin{tabular}{|c|c|c||c|c|}
+    $A$ & $B$ & $\text{borrow}_{in}$ & $\text{resta}$ & $\text{borrow}_{out}$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 1 & 1 \\
+    0 & 1 & 0 & 1 & 1 \\
+    0 & 1 & 1 & 0 & 1 \\
+    1 & 0 & 0 & 1 & 0 \\
+    1 & 0 & 1 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 1 \\
+\end{tabular}
+
+\subsection{}
+
+\emph{Pendiente}
+
+\subsection{}
+
+\emph{Pendiente}
+% \begin{tabular}{|c|cccc|cccc|}
+%     Condición & Complemento a 2 & Notación sin signo \\
+%     \hline
+%     $A < B$ & $N=1$ & \\
+%     $A \leq B$ & $N=1 \lor Z=1$ & \\
+%     $A = B$ & $Z=1$ & \\
+%     $A \geq B$ & $N=0 \lor Z=1$ & \\
+%     $A > B$ & $N=0$ & \\
+% \end{tabular}
+
+\section{Ejercicio 13}
+
+\subsection{Negador}
+
+Simplemente negamos todas las entradas.
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/Negator4bits}
+\end{figure}
+
+\subsection{Inversor}
+
+Utilizando el negador y un full adder (para sumar 1) podemos aplicar el algoritmo para invertir un número en representación complemento a 2.
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/Inverter4bitsV1}
+\end{figure}
+
+\subsection{Inversor con flag}
+
+El único número que no tiene inverso aditivo en representación complemento a 2 es el $-8_{10}$, el cual se representa con el siguiente numeral: $1000_2$. Por lo tanto, la fórmula booleana para prender el flag es la siguiente: $F = e_3 . \overline{e_2} . \overline{e_1} . \overline{e_0}$.
+
+\begin{figure}[ht]
+    \includesvg{Circuitos/Inverter4bitsV2}
+\end{figure}
+
+\end{document}
